@@ -11,13 +11,15 @@ source:
 
 build:
   number: 0
-  script: {{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv
+  script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation --ignore-installed --no-cache-dir -vvv
   skip: true  # [py<310]
 
 requirements:
   host:
     - python
     - pip
+    - setuptools
+    - wheel
   run:
     - python
     - scipy >=1.10
@@ -42,7 +44,7 @@ test:
 
 
 about:
-  home: http://pysal.org
+  home: https://pysal.org
   license: BSD-3-Clause
   license_family: BSD
   license_file: LICENSE.txt
@@ -51,7 +53,7 @@ about:
   description: |
     This pointpats package is intended to support the statistical analysis
     of planar point patterns.
-  doc_url: https://pointpats.readthedocs.io/en/latest/
+  doc_url: https://pysal.org/pointpats/
   dev_url: https://github.com/pysal/pointpats
 
 extra:
