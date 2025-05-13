@@ -45,6 +45,7 @@ test:
   commands:
     - pip check
     - pytest -vv pointpats/tests
+    - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
 
 
 about:
