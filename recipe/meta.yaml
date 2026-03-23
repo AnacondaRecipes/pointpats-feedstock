@@ -1,5 +1,5 @@
 {% set name = "pointpats" %}
-{% set version = "2.5.2" %}
+{% set version = "2.5.5" %}
 
 package:
   name: {{ name|lower }}
@@ -7,12 +7,12 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 6be0be63c893b542d4b6b00609bb8378c38b58245c1cc53a95283500c3d4a663
+  sha256: 5af6ad0b689905f59037a6a7e4ba99ab4aafe8e088894032902c3e7f9c7e72b5
 
 build:
   number: 0
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation --ignore-installed --no-cache-dir -vvv
-  skip: true  # [py<310]
+  skip: true  # [py<311]
 
 requirements:
   host:
@@ -22,13 +22,13 @@ requirements:
     - setuptools_scm >=6.2
   run:
     - python
-    - libpysal >=4.8
-    - geopandas >=0.12
-    - matplotlib-base >=3.6
-    - numpy >=1.24
-    - pandas >=1.4,!=1.5.0
-    - scipy >=1.10
-    - shapely >=2
+    - libpysal >=4.10
+    - geopandas >=1.0
+    - matplotlib-base >=3.9
+    - numpy >=1.26
+    - pandas >=2.2
+    - scipy >=1.12
+    - shapely >=2.1
 
 test:
   source_files:
@@ -36,13 +36,15 @@ test:
     - pointpats
   imports:
     - pointpats
+    - pointpats.quadrat_statistics
+    - pointpats.random
   requires:
     - pip
     - pytest
   commands:
     - pip check
-    - pytest -vv pointpats/tests
     - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
+    - pytest -ra -vv pointpats/tests
 
 about:
   home: https://pysal.org
