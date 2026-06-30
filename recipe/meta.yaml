@@ -1,5 +1,5 @@
 {% set name = "pointpats" %}
-{% set version = "2.5.5" %}
+{% set version = "2.6.0" %}
 
 package:
   name: {{ name }}
@@ -10,7 +10,7 @@ source:
   sha256: 5af6ad0b689905f59037a6a7e4ba99ab4aafe8e088894032902c3e7f9c7e72b5
 
 build:
-  number: 1
+  number: 0
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation --ignore-installed --no-cache-dir -vvv
   skip: true  # [py<311]
 
@@ -20,20 +20,19 @@ requirements:
     - pip
     - setuptools >=61.0
     - setuptools_scm >=6.2
+    - tomli
   run:
     - python
-    - libpysal >=4.10
-    - geopandas >=1.0
-    - matplotlib-base >=3.9
-    # >  raise AttributeError(f"module {__name__!r} has no attribute {attr!r}")
-    # E  AttributeError: module 'numpy' has no attribute 'row_stack'
-    # https://numpy.org/doc/stable/release/2.0.0-notes.html
-    # Alias np.row_stack has been deprecated. Use np.vstack directly.
-    # https://github.com/numpy/numpy/pull/24445
-    - numpy >=1.26,<2
-    - pandas >=2.2
-    - scipy >=1.12
+    - libpysal >=4.12
+    - geopandas >=1.1.0
+    - matplotlib-base >=3.10
+    - numpy >=2.0.0
+    - pandas >=2.3.0
+    - scipy >=1.14
     - shapely >=2.1
+  run_constrained:
+    - numba>=0.60
+    - scikit-learn>=1.5.0
 
 test:
   source_files:
