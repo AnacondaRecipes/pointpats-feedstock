@@ -2,7 +2,7 @@
 {% set version = "2.5.5" %}
 
 package:
-  name: {{ name|lower }}
+  name: {{ name }}
   version: {{ version }}
 
 source:
@@ -25,7 +25,12 @@ requirements:
     - libpysal >=4.10
     - geopandas >=1.0
     - matplotlib-base >=3.9
-    - numpy >=1.26
+    # >  raise AttributeError(f"module {__name__!r} has no attribute {attr!r}")
+    # E  AttributeError: module 'numpy' has no attribute 'row_stack'
+    # https://numpy.org/doc/stable/release/2.0.0-notes.html
+    # Alias np.row_stack has been deprecated. Use np.vstack directly.
+    # https://github.com/numpy/numpy/pull/24445
+    - numpy >=1.26,<2
     - pandas >=2.2
     - scipy >=1.12
     - shapely >=2.1
