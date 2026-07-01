@@ -1,18 +1,18 @@
 {% set name = "pointpats" %}
-{% set version = "2.5.5" %}
+{% set version = "2.6.0" %}
 
 package:
-  name: {{ name|lower }}
+  name: {{ name }}
   version: {{ version }}
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 5af6ad0b689905f59037a6a7e4ba99ab4aafe8e088894032902c3e7f9c7e72b5
+  sha256: 6c21e0a03d9ad4ca0f62393f888842212580d99b828b4b68ddeb1929eac8bdf2
 
 build:
   number: 0
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation --ignore-installed --no-cache-dir -vvv
-  skip: true  # [py<311]
+  skip: true  # [py<312]
 
 requirements:
   host:
@@ -20,15 +20,19 @@ requirements:
     - pip
     - setuptools >=61.0
     - setuptools_scm >=6.2
+    - tomli
   run:
     - python
-    - libpysal >=4.10
-    - geopandas >=1.0
-    - matplotlib-base >=3.9
-    - numpy >=1.26
-    - pandas >=2.2
-    - scipy >=1.12
+    - libpysal >=4.12
+    - geopandas >=1.1.0
+    - matplotlib-base >=3.10
+    - numpy >=2.0.0
+    - pandas >=2.3.0
+    - scipy >=1.14
     - shapely >=2.1
+  run_constrained:
+    - numba>=0.60
+    - scikit-learn>=1.5.0
 
 test:
   source_files:
